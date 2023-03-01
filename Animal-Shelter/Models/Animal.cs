@@ -13,3 +13,12 @@ public class Animal
     Date = DateTime.Now;
   }
 }
+
+public enum Breed
+{
+  Cat,
+  Dog,
+  Fish,
+  Reptile,
+  Other
+}

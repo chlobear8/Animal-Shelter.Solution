@@ -10,12 +10,21 @@
 {
   <h3>No animals have been added yet!</h3>
 } 
-
 <ul>
-  @foreach(Animal animal in Model)
+@{
+  // get the value of the dropdown
+  //List<Animal> animals = Model.ToList();
+  //animals = animals.OrderBy(animal => animal.AnimalName).ToList();
+  //animals.Sort((x, y) => x.AnimalName.CompareTo(y.AnimalName));
+  List<Animal> UnsortedAnimals = Model;
+  List<Animal> SortedAnimals = UnsortedAnimals.OrderBy(animal => animal.AnimalName).ToList();
+
+
+  foreach(Animal animal in SortedAnimals)
   {
     <li>@Html.ActionLink($"{animal.AnimalName}", "Details", new { id = animal.AnimalId })</li>
   }
+}
 </ul>
 
 <p>@Html.ActionLink("Add new animal", "Create")</p>
