@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 using AnimalShelter.Models;
 
@@ -19,6 +20,20 @@ public class AnimalsController : Controller
   {
     List<Animal> model = _db.Animals.ToList();
     return View(model);
+  }
+
+  [HttpPost]
+  public ActionResult Index(string sortMethod)
+  {
+    List<Animal> model = _db.Animals.ToList();
+
+    if (sortMethod == null)
+    {
+      return View(model);
+    }
+
+    List<Animal> sortedAnimals = model.OrderBy(animal => typeof(Animal).GetProperty(sortMethod).GetValue(animal)).ToList();
+    return View(sortedAnimals);
   }
 
   public ActionResult Create()
